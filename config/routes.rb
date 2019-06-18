@@ -3,7 +3,9 @@
 Rails.application.routes.draw do
   resources :tags
   resources :comments
-  resources :posts
+  resources :posts do
+    resources :comments, only: [:edit]
+  end
   resources :users
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

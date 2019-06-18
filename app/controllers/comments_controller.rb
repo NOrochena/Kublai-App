@@ -12,7 +12,10 @@ class CommentsController < ApplicationController
 
   def edit; end
 
-  def update; end
+  def update
+    @comment.update(comment_params)
+    redirect_to post_path(@comment.post)
+  end
 
   def destroy; end
 
