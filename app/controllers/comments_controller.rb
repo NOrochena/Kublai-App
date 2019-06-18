@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   before_action :find_comment, only: %w[edit update destroy]
 
   def create
-    @comment = Comment.new(content: params[:content], user_id: params[:comment][:user_id], post_id: params[:post_id])
+    @comment = Comment.new(content: params[:content], user_id: session['user_id'], post_id: params[:post_id])
     @comment.save
     redirect_to post_path(@comment.post)
   end

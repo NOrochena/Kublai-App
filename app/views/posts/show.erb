@@ -1,4 +1,8 @@
 <h1><%= @post.title%></h1>
+<h2><%= @post.user.name%></h2>
+<% @post.tags.each do |tag|%>
+    <p>Tag: <%= tag.name%></p>
+<% end %>
 <p><%= @post.content%></p>
 
 <h2>Comments:</h2>
@@ -17,9 +21,6 @@
     <%= label_tag :content, "Content:" %>
     <%= text_field_tag :content %>
     
-    <%= label_tag :user_id, "User:"%>
-    <%= collection_select :comment, :user_id, User.all, :id, :name%>
-
     <%= hidden_field_tag :post_id, @post.id %>
 
     <%= submit_tag "Create Comment"%>

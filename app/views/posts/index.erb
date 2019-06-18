@@ -3,6 +3,9 @@
 <ul>
     <% @posts.each do |post| %>
         <li><h2> <%= link_to post.title, post_path(post) %> </h2></li>
+        <% post.tags.each do |tag|%>
+            <p>Tag: <%= tag.name%></p>
+        <% end %>
         <p> Created by: <%= link_to post.user.name, user_path(post.user)%> </p>
         <p> Comments: <%= post.comments.count %> </p>
     <% end %>

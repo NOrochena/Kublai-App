@@ -2,6 +2,7 @@
 
 class PostsController < ApplicationController
   before_action :find_post, only: %w[show edit update destroy]
+  before_action :require_login, only: %i[edit update destroy]
 
   def index
     @posts = Post.all
@@ -15,6 +16,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    @post.user = User.find(session['user_id'])
     @post.save
     redirect_to @post
   end
@@ -38,6 +40,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, :user_id)
+    params.require(:post).permit(:title, :content, post_tags: [:tag_id])
   end
 end
