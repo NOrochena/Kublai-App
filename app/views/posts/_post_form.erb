@@ -5,7 +5,7 @@
     <%= f.label :content %>
     <%= f.text_area :content %>
 
-    <%= fields_for :post_tags do |tags| %>
+    <%= f.fields_for :post_tags do |tags| %>
         <%= tags.label :tag_id %>
         <%= tags.collection_select :tag_id, Tag.all, :id, :name %>
     <% end %>

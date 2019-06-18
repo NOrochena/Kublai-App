@@ -2,7 +2,7 @@
 
 class PostsController < ApplicationController
   before_action :find_post, only: %w[show edit update destroy]
-  before_action :require_login, only: %i[edit update destroy]
+  before_action :require_login_post, only: %i[edit update destroy]
 
   def index
     @posts = Post.all
@@ -12,6 +12,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @post.post_tags.build
   end
 
   def create
@@ -40,6 +41,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, post_tags: [:tag_id])
+    params.require(:post).permit(:title, :content, post_tags_attributes: [:tag_id])
   end
 end
