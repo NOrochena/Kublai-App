@@ -5,9 +5,8 @@
     <%= f.label :content %>
     <%= f.text_area :content %>
 
-    <%= f.fields_for :post_tags do |tags| %>
-        <%= tags.label :tag_id %>
-        <%= tags.collection_select :tag_id, Tag.all, :id, :name %>
-    <% end %>
+    <%= f.label :tag_id %>
+    <%= f.collection_select :tag_id, Tag.all, :id, :name %>
+
     <%= f.submit%>
 <% end %>

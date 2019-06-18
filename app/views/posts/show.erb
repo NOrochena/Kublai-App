@@ -1,8 +1,6 @@
 <h1><%= @post.title%></h1>
 <h2><%= @post.user.name%></h2>
-<% @post.tags.each do |tag|%>
-    <p>Tag: <%= tag.name%></p>
-<% end %>
+<p>Tag: <%= @post.tag.name %></p>
 <p><%= @post.content%></p>
 
 <h2>Comments:</h2>
