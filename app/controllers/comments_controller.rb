@@ -17,7 +17,10 @@ class CommentsController < ApplicationController
     redirect_to post_path(@comment.post)
   end
 
-  def destroy; end
+  def destroy
+    @comment.destroy
+    redirect_to post_path(@comment.post)
+  end
 
   private
 

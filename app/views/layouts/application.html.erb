@@ -11,7 +11,7 @@
 
   <body>
     <% if find_current_user%>
-      <%= link_to find_current_user.name, user_path(find_current_user)%>
+      <%= link_to find_current_user.name.capitalize, user_path(find_current_user)%>
       <%= link_to "Logout", logout_path, method: "delete"%>
     <% end %>
     <%= yield %>

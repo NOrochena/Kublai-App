@@ -9,6 +9,14 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # def logged_in?
+  #   !!find_current_user
+  # end
+
+  # def authorized
+  #   redirect_to login_path unless logged_in?
+  # end
+
   def require_login
     redirect_to login_path unless session.include? 'user_id'
   end

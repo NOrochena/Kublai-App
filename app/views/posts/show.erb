@@ -1,29 +1,36 @@
 <h1><%= @post.title%></h1>
-<h2><%= @post.user.name%></h2>
+<h2>Author: <%= @post.user.name.capitalize%></h2>
 <p>Tag: <%= @post.tag.name %></p>
 <p><%= @post.content%></p>
 
-<h2>Comments:</h2>
+<h3>Comments:</h3>
 <ol>
-    <% @post.comments.each do |comment| %>
-        <li>
-            <p><%= comment.content%> by: <%= link_to comment.user.name, user_path(comment.user)%> </p>
-        
-        </li>
-        
-    <% end %>
+	<% @post.comments.each do |comment| %>
+	<li>
+		<%= comment.content%> by: <%= link_to comment.user.name.capitalize, user_path(comment.user)%>
+		<% if comment.user_id == session["user_id"] %>
+			<small>
+				<%= link_to "Edit Comment", edit_post_comment_path(@post, comment) %>
+				<%= link_to "Delete Comment", comment_path(comment), method: "Delete", data: { confirm: 'Really delete this comment?' }  %>
+			</small>
+		<% end %>
+	</li>  
+	<% end %>
 </ol>
 
-<h2>Add Comment</h2>
 <%= form_tag "/comments" do %>
-    <%= label_tag :content, "Content:" %>
-    <%= text_field_tag :content %>
-    
-    <%= hidden_field_tag :post_id, @post.id %>
+	<%= label_tag :content, "Add Comment:" %>
+	<%= text_field_tag :content %>
 
-    <%= submit_tag "Create Comment"%>
+	<%= hidden_field_tag :post_id, @post.id %>
+
+	<%= submit_tag "Create Comment"%>
 <% end %>
 
-<%= link_to "Edit", edit_post_path(@post)%>
-<%= link_to "Home", posts_path %>
-<%= link_to "Delete", @post, method: "delete"%>
+<ul>
+<li><%= link_to "Back to Posts", posts_path %> 
+<% if @post.user_id == session["user_id"] %>
+	<li><%= link_to "Edit", edit_post_path(@post)%></li>
+	<li><%= link_to "Delete", @post, method: "delete"%></li>
+<% end %>
+</ul>
