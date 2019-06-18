@@ -3,6 +3,7 @@
 class PostsController < ApplicationController
   before_action :find_post, only: %w[show edit update destroy]
   before_action :require_login_post, only: %i[edit update destroy]
+  before_action :require_login, only: %w[new create]
 
   def index
     @posts = Post.all

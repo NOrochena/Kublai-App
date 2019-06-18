@@ -2,6 +2,7 @@
 
 class CommentsController < ApplicationController
   before_action :find_comment, only: %w[edit update destroy]
+  before_action :require_login, only: %w[new create]
 
   def create
     @comment = Comment.new(content: params[:content], user_id: session['user_id'], post_id: params[:post_id])

@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def require_login
+    redirect_to login_path unless session.include? 'user_id'
+  end
+
   def require_login_post
     redirect_to login_path unless session['user_id'] == @post.user_id
   end
