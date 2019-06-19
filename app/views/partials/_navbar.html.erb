@@ -1,0 +1,14 @@
+<div class="ui fixed inverted menu">
+    <div class="ui container">
+      <a href="#" class="header item">
+        <img class="logo" src="https://semantic-ui.com/examples/assets/images/logo.png"> Project Name</a>
+      <a href="#" class="item">Home</a>
+      <% if find_current_user%>
+        <div class="right item">
+          <%= link_to find_current_user.name.capitalize, user_path(find_current_user), class: "ui inverted button" %>
+          <%= link_to "Logout", logout_path, method: "delete", class: "ui inverted button" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+    
