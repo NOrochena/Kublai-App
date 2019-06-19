@@ -1,4 +1,8 @@
-<h1>Post Index</h1>
+<h1>
+	<% if @posts.any? %>
+		<%= @posts.first.category.name.capitalize %> Index
+	<% end %>
+</h1>
 
 <ul class="posts-list">
 	<% @posts.each do |post| %>

@@ -9,6 +9,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Destroy tables
+Category.destroy_all
 User.destroy_all
 Post.destroy_all
 Comment.destroy_all
@@ -20,6 +21,10 @@ nick = User.create(name: 'nick', email: 'nick@email.com', password: 'password')
 keith = User.create(name: 'keith', email: 'keith@email.com', password: 'password')
 errol = User.create(name: 'errol', email: 'errol@email.com', password: 'password')
 
+# Create Categories
+programming = Category.create(name: "programming")
+cooking = Category.create(name: "cooking")
+
 # Create Tags
 ruby = Tag.create(name: 'ruby')
 javascript = Tag.create(name: 'javascript')
@@ -28,9 +33,9 @@ css = Tag.create(name: 'CSS')
 python = Tag.create(name: 'python')
 
 # Create Posts
-post1 = Post.create(title: 'Ruby Programming Project', tag: ruby, content: 'Please help me Please help me Please help me Please help me Please help me Please help me ')
+post1 = Post.create(title: 'Ruby Programming Project', category_id: programming.id, tag: ruby, content: 'Please help me Please help me Please help me Please help me Please help me Please help me ')
 post1.user = nick
-post2 = Post.create(title: 'HTML Programming Project', tag: python, content: 'HTML HELP HTML HELP HTML HELP HTML HELP HTML HELP')
+post2 = Post.create(title: 'HTML Programming Project', category_id: programming.id, tag: python, content: 'HTML HELP HTML HELP HTML HELP HTML HELP HTML HELP')
 post2.user = keith
 
 # Create Comments
