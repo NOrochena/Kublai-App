@@ -1,14 +1,36 @@
-<div class="ui fixed inverted menu">
-    <div class="ui container">
-      <a href="#" class="header item">
-        <img class="logo" src="https://semantic-ui.com/examples/assets/images/logo.png"> Project Name</a>
-      <a href="#" class="item">Home</a>
+<nav class="ui fixed stackable menu">
+  <div class="ui container">
+    <a href="<%= root_path %>" class="header item">
+      <img class="logo" src=<%= asset_path('dog.png') %>> Kublai
+    </a>
+    <a class="item">
+      <i class="grid layout icon"></i> Browse
+    </a>
+    <a class="item">
+      <i class="mail icon"></i> Messages
+    </a>
+    <div class="ui simple dropdown item">
+      More
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <a class="item"><i class="edit icon"></i> Edit Profile</a>
+        <a class="item"><i class="globe icon"></i> Choose Language</a>
+        <a class="item"><i class="settings icon"></i> Account Settings</a>
+      </div>
+    </div>
+    <div class="right item">
+      <div class="ui action input">
+        <input type="text" placeholder="Search...">
+        <button class="ui button">Search</button>
+      </div>
       <% if find_current_user%>
-        <div class="right item">
-          <%= link_to find_current_user.name.capitalize, user_path(find_current_user), class: "ui inverted button" %>
-          <%= link_to "Logout", logout_path, method: "delete", class: "ui inverted button" %>
-        </div>
+        <%= link_to find_current_user.name.capitalize, user_path(find_current_user), class: "ui primary button" %> 
+        <%= link_to "Logout", logout_path, method: "delete", class: "ui red button" %>
+      <% else %>
+        <%= link_to "Login", login_path, class: "ui primary button" %>
+        <%= link_to "Create Account", new_user_path, class: "ui fluid red button" %> 
       <% end %>
+      
     </div>
   </div>
-    
+</nav>
