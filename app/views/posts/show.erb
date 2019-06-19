@@ -3,11 +3,18 @@
 <p>Tag: <%= @post.tag.name %></p>
 <p><%= @post.content%></p>
 
+<h3>Collaborators</h3>
+<ol>
+	<% @post.collaborators.each do |collaborator| %>
+		<li><%= link_to collaborator.user.name.capitalize, user_path(collaborator.user) %></li>
+	<% end %>
+</ol>
+
 <h3>Comments:</h3>
 <ol>
 	<% @post.comments.each do |comment| %>
 	<li>
-		<%= comment.content%> by: <%= link_to comment.user.name.capitalize, user_path(comment.user)%>
+		<%= comment.content%> by: <%= link_to comment.user.name.capitalize, user_path(comment.user) %>
 		<% if comment.user_id == session["user_id"] %>
 			<small>
 				<%= link_to "Edit Comment", edit_post_comment_path(@post, comment) %>

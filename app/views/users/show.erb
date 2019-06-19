@@ -1,16 +1,27 @@
 <h1><%= @user.name.capitalize %>'s Profile Page</h1>
 
-<h2><%= @user.name.capitalize %>'s Posts:</h2>
+<h2><%= @user.name.capitalize %>'s Projects:</h2>
 <ol>
 <% @user.posts.each do |post| %>
     <li><%= link_to post.title, post_path(post)%></li>
 <% end %>
 </ol>
 
-<h2><%= @user.name.capitalize %>'s Comments:</h2>
+<h2><%= @user.name.capitalize %>'s Collaborations:</h2>
 <ol>
+<% @user.collaborators.each do |collaborator| %>
+    <li><%= link_to collaborator.post.title, post_path(collaborator.post)%></li>
+<% end %>
+</ol>
+
+<h2><%= @user.name.capitalize %>'s Comments:</h2>
+<ol class="user-comments">
 <% @user.comments.each do |comment| %>
-    <li><%= link_to comment.content, post_path(comment.post)%></li>
+    <li>
+        <small><%= link_to comment.post.title, post_path(comment.post) %></small>
+        <!-- <%= link_to comment.content, post_path(comment.post) %> -->
+        <%= comment.content %>
+    </li>
 <% end %>
 </ol>
 
