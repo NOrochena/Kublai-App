@@ -3,6 +3,10 @@
 class ApplicationController < ActionController::Base
   helper_method :find_current_user, :logged_in?
 
+  def index
+    @posts = Post.order("created_at desc")
+  end
+
   def find_current_user
     @user = User.find(session['user_id']) if session['user_id']
   end

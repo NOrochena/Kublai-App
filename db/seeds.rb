@@ -33,10 +33,10 @@ css = Tag.create(name: 'CSS')
 python = Tag.create(name: 'python')
 
 # Create Posts
-post1 = Post.create(title: 'Ruby Programming Project', category_id: programming.id, tag: ruby, content: 'Please help me Please help me Please help me Please help me Please help me Please help me ')
-post1.user = nick
-post2 = Post.create(title: 'HTML Programming Project', category_id: programming.id, tag: python, content: 'HTML HELP HTML HELP HTML HELP HTML HELP HTML HELP')
-post2.user = keith
+post1 = Post.create(user: nick, title: 'Ruby Programming Project', category_id: programming.id, tag: ruby, content: 'Please help me Please help me Please help me Please help me Please help me Please help me ')
+post2 = Post.create(user: keith, title: 'HTML Programming Project', category_id: programming.id, tag: python, content: 'HTML HELP HTML HELP HTML HELP HTML HELP HTML HELP')
+post3 = Post.create(user: errol, title: 'How to cook spaghetti?', category_id: cooking.id, tag: ruby, content: 'Please help me cook spaghetti?! Please help me cook spaghetti?! Please help me cook spaghetti?! Please help me cook spaghetti?! Please help me cook spaghetti?! Please help me cook spaghetti?! ')
+
 
 # Create Comments
 Comment.create(content: "I'll help", user: nick, post: post1)

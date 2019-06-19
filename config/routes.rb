@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  root to: 'application#index'
+
   resources :categories, except: :show
   get '/categories/:name', to: 'posts#index'
 
