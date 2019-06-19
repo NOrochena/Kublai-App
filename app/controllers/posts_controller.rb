@@ -20,15 +20,22 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user = User.find(session['user_id'])
-    @post.save
-    redirect_to @post
+    if @post.valid?
+      @post.save
+      redirect_to @post
+    else
+      render :new
+    end
   end
 
   def edit; end
 
   def update
-    @post.update(post_params)
-    redirect_to @post
+    if @post.update(post_params)
+      redirect_to @post
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -43,6 +50,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, :tag_id)
+    params.require(:post).permit(:title, :content, :tag_id, :category_id)
   end
 end

@@ -29,6 +29,10 @@
 	<% end %>
 </ol>
 
+<% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+
 <%= form_tag "/comments" do %>
 	<%= label_tag :content, "Add Comment:" %>
 	<%= text_field_tag :content %>
@@ -38,10 +42,12 @@
 	<%= submit_tag "Create Comment"%>
 <% end %>
 
-<%= form_tag "/collaborator" do %>
-	<%= hidden_field_tag :user_id, session["user_id"]%>
-	<%= hidden_field_tag :post_id, @post.id %>
-	<%= submit_tag "Collaborate!"%>
+<% unless @post.user_id == session["user_id"]%>
+	<%= form_tag "/collaborator" do %>
+		<%= hidden_field_tag :user_id, session["user_id"]%>
+		<%= hidden_field_tag :post_id, @post.id %>
+		<%= submit_tag "Collaborate!"%>
+	<% end %>
 <% end %>
 
 <ul>

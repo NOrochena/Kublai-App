@@ -1,5 +1,5 @@
 <h1>Create new User</h1>
-
+<%= render partial: 'shared/error_list', locals: {object: @user }%>
 <%= render 'user_form'%>
 
 <p><%= link_to 'Cancel', users_path %></p>

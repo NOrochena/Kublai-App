@@ -6,15 +6,23 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(content: params[:content], user_id: session['user_id'], post_id: params[:post_id])
-    @comment.save
-    redirect_to post_path(@comment.post)
+    if @comment.valid?
+      @comment.save
+      redirect_to post_path(@comment.post)
+    else
+      flash[:notice] = 'Please include content in your comment'
+      redirect_to post_path(@comment.post)
+    end
   end
 
   def edit; end
 
   def update
-    @comment.update(comment_params)
-    redirect_to post_path(@comment.post)
+    if @comment.update(comment_params)
+      redirect_to post_path(@comment.post)
+    else
+      render :edit
+    end
   end
 
   def destroy
