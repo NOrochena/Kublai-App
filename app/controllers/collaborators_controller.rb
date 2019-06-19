@@ -7,7 +7,7 @@ class CollaboratorsController < ApplicationController
       @collaborator.save
       redirect_to post_path(@collaborator.post)
     else
-      flash[:notice] = 'Already a collaborator!'
+      flash[:notice] = @collaborator.errors.full_messages.join(' ')
       redirect_to post_path(@collaborator.post)
     end
   end
