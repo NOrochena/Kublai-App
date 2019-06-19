@@ -7,8 +7,13 @@ Rails.application.routes.draw do
     resources :comments, only: [:edit]
   end
   resources :users
+
+  # Sessions
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+
+  # Colloborator
+  post '/collaborator', to: 'collaborators#create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

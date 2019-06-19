@@ -34,6 +34,12 @@
 	<%= submit_tag "Create Comment"%>
 <% end %>
 
+<%= form_tag "/collaborator" do %>
+	<%= hidden_field_tag :user_id, session["user_id"]%>
+	<%= hidden_field_tag :post_id, @post.id %>
+	<%= submit_tag "Collaborate!"%>
+<% end %>
+
 <ul>
 <li><%= link_to "Back to Posts", posts_path %> 
 <% if @post.user_id == session["user_id"] %>
