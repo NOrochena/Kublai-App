@@ -6,7 +6,11 @@
 <h3>Collaborators</h3>
 <ol>
 	<% @post.collaborators.each do |collaborator| %>
-		<li><%= link_to collaborator.user.name.capitalize, user_path(collaborator.user) %></li>
+		<li><%= link_to collaborator.user.name.capitalize, user_path(collaborator.user) %>
+		<% if collaborator.user == find_current_user%>
+			<%= link_to "Remove", collaborator_path(collaborator), method: "Delete"%>
+		<% end %>
+		</li>
 	<% end %>
 </ol>
 
