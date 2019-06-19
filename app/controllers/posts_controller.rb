@@ -6,7 +6,9 @@ class PostsController < ApplicationController
   before_action :require_login, only: %w[new create]
 
   def index
-    @posts = Post.order('created_at desc')
+    # @posts = Post.order('created_at desc')
+    @category = Category.find_by(name: params[:name])
+    @posts = Post.where(category: @category)
   end
 
   def show; end

@@ -1,23 +1,18 @@
-<h1>
-	<% if @posts.any? %>
-		<%= @posts.first.category.name.capitalize %> Index
-	<% end %>
-</h1>
+<h1>The Homepage</h1>
 
 <ul class="posts-list">
 	<% @posts.each do |post| %>
 	<li>
 		<div>
-			<p>Posted by <%= link_to post.user.name.capitalize, user_path(post.user) %> 
+			<p><strong><%= link_to post.category.name.capitalize, category_path(post.category.name.downcase) %></strong> • 
+			Posted by <%= link_to post.user.name.capitalize, user_path(post.user) %> 
 			<%= time_ago_in_words(post.created_at) %> ago</p>
 		</div>
 		<h2><%= link_to post.title, post_path(post) %></h2>
-		<p><%= post.comments.count %> Comments | Tags: <%= link_to post.tag.name.capitalize, "#" %></p>
+		<p><%= post.comments.count %> Comments</p>
 	</li>
 	<% end %>
 </ul>
-
-<p><%= link_to "Back to Homepage", root_path %></p>
 
 <% if logged_in? %>
 	<p><%= link_to "Create new Post", new_post_path %></p>

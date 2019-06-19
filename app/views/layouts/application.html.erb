@@ -11,6 +11,14 @@
 
   <body>
     <%= render 'partials/navbar'%>
+
+    <% if find_current_user%>
+      <%= link_to find_current_user.name.capitalize, user_path(find_current_user)%>
+      <%= link_to "Logout", logout_path, method: "delete"%>
+    <% else %>
+      <%= link_to "You are currently not logged in", login_path%>
+    <% end %>
+    
     <%= yield %>
 
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
