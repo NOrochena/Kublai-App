@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class CollaboratorsController < ApplicationController
+
   def create
     @collaborator = Collaborator.new(post_id: params[:post_id], user_id: params[:user_id])
+
     if @collaborator.valid?
       @collaborator.save
       redirect_to post_path(@collaborator.post)
@@ -17,4 +19,5 @@ class CollaboratorsController < ApplicationController
     @collaborator.destroy
     redirect_back(fallback_location: posts_path)
   end
+  
 end
