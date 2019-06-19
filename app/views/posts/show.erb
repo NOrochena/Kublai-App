@@ -29,6 +29,10 @@
 	<% end %>
 </ol>
 
+<% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+
 <%= form_tag "/comments" do %>
 	<%= label_tag :content, "Add Comment:" %>
 	<%= text_field_tag :content %>
