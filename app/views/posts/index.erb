@@ -2,10 +2,12 @@
 
 <ul>
     <% @posts.each do |post| %>
-        <li><h2> <%= link_to post.title, post_path(post) %> </h2></li>
-        <p>Tag: <%= post.tag.name %></p>
-        <p> Created by: <%= link_to post.user.name, user_path(post.user)%> </p>
-        <p> Comments: <%= post.comments.count %> </p>
+    <li>
+        <h2> <%= link_to post.title, post_path(post) %></h2>
+        <p>Topic: <%= link_to post.tag.name.capitalize, "#" %> | 
+        Created by: <%= link_to post.user.name.capitalize, user_path(post.user)%> | 
+        Comments: <%= post.comments.count %> </p>
+    </li>
     <% end %>
 </ul>
 
