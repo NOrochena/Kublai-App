@@ -7,6 +7,13 @@
 <% end %>
 </ol>
 
+<h2><%= @user.name.capitalize %>'s Collaborations:</h2>
+<ol>
+<% @user.collaborators.each do |collaborator| %>
+    <li><%= link_to collaborator.post.title, post_path(collaborator.post)%></li>
+<% end %>
+</ol>
+
 <h2><%= @user.name.capitalize %>'s Comments:</h2>
 <ol class="user-comments">
 <% @user.comments.each do |comment| %>

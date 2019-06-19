@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_18_183601) do
+ActiveRecord::Schema.define(version: 2019_06_19_150036) do
+
+  create_table "collaborators", id: false, force: :cascade do |t|
+    t.integer "post_id", null: false
+    t.integer "user_id", null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.string "content"

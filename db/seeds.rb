@@ -13,6 +13,7 @@ User.destroy_all
 Post.destroy_all
 Comment.destroy_all
 Tag.destroy_all
+Collaborator.destroy_all
 
 # Create Users
 nick = User.create(name: 'nick', email: 'nick@email.com', password: 'password')
@@ -40,3 +41,7 @@ Comment.create(content: "I'll help", user: errol, post: post1)
 Comment.create(content: "I'll help", user: nick, post: post2)
 Comment.create(content: "I'll help", user: nick, post: post2)
 Comment.create(content: "I'll help", user: keith, post: post2)
+
+Collaborator.create(post: post1, user: keith)
+Collaborator.create(post: post1, user: errol)
+Collaborator.create(post: post2, user: nick)
