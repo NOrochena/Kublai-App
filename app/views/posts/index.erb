@@ -8,15 +8,16 @@
 	<% @posts.each do |post| %>
 	<li>
 		<div>
-			<p><%= link_to post.tag.name.capitalize, "#" %> project,  
-			created by <%= link_to post.user.name.capitalize, user_path(post.user) %> 
+			<p>Posted by <%= link_to post.user.name.capitalize, user_path(post.user) %> 
 			<%= time_ago_in_words(post.created_at) %> ago</p>
 		</div>
 		<h2><%= link_to post.title, post_path(post) %></h2>
-		<p><%= post.comments.count %> Comments</p>
+		<p><%= post.comments.count %> Comments | Tags: <%= link_to post.tag.name.capitalize, "#" %></p>
 	</li>
 	<% end %>
 </ul>
+
+<p><%= link_to "Back to Homepage", root_path %></p>
 
 <% if logged_in? %>
 	<p><%= link_to "Create new Post", new_post_path %></p>

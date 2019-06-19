@@ -45,9 +45,10 @@
 <% end %>
 
 <ul>
-<li><%= link_to "Back to Posts", posts_path %> 
-<% if @post.user_id == session["user_id"] %>
-	<li><%= link_to "Edit", edit_post_path(@post)%></li>
-	<li><%= link_to "Delete", @post, method: "delete"%></li>
-<% end %>
+	<li><%= link_to "Back to "+ @post.category.name.capitalize, category_path(@post.category.name.downcase) %></li>
+	<li><%= link_to "Back to Homepage", root_path %> 
+	<% if @post.user_id == session["user_id"] %>
+		<li><%= link_to "Edit", edit_post_path(@post)%></li>
+		<li><%= link_to "Delete", @post, method: "delete"%></li>
+	<% end %>
 </ul>
