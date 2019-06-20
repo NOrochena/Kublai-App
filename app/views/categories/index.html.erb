@@ -2,3 +2,9 @@
   <h2><%= link_to category.name, category_path(category.name.downcase) %> <button>Subscribe</button></h2>
   <hr>
 <% end %>
+
+<p><%= link_to "Back to Homepage", root_path %></p>
+
+<% if logged_in? %>
+	<p><%= link_to "Create new Category", new_category_path %></p>
+<% end %>
