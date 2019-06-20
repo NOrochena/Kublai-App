@@ -20,9 +20,10 @@
   </div>
 
   <div class="five wide column">
-    <p><%= link_to "Back to Homepage", root_path %></p>
+    <!-- <%= link_to "Back to Homepage", root_path %> -->
     <% if logged_in? %>
-      <p><%= link_to "Create new Category", new_category_path %></p>
+      <!-- <%= link_to "Create new Category", new_category_path %> -->
+      <%= render "category_form" %>
     <% end %>
 	</div>
 

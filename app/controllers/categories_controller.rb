@@ -2,6 +2,7 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = Category.all
+    @category = Category.new
   end
 
   def show
@@ -13,7 +14,8 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.create(category_params)
+    downcase_name = params[:category][:name].downcase
+    @category = Category.create(name: downcase_name)
     redirect_to category_path(@category.name)
   end
 
