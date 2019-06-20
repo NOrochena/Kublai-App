@@ -3,11 +3,10 @@
 Rails.application.routes.draw do
   root to: 'application#index'
 
-  resources :categories, except: :show
-  get '/categories/:name', to: 'posts#index'
+  resources :categories, only: %i[index new]
+  get '/categories/:name', to: 'posts#index', as: 'category'
 
-  resources :tags
-  resources :comments
+  resources :comments, only: %i[create update destroy]
   resources :posts do
     resources :comments, only: [:edit]
   end
