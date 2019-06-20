@@ -8,7 +8,11 @@ class PostsController < ApplicationController
   def index
     # @posts = Post.order('created_at desc')
     @category = Category.find_by(name: params[:name])
-    @posts = Post.where(category: @category)
+    if @category
+      @posts = Post.where(category: @category)
+    else
+      redirect_to '/'
+    end
   end
 
   def show; end
