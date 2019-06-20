@@ -1,20 +1,29 @@
-<% @categories.each do |category| %>
-  <h2>
-    <%= link_to category.name, category_path(category.name.downcase) %>
+<div class="row">
+	<div class="eleven wide column">
 
-    <% if logged_in? %>
-      <% if category.subscribers.any?{|object| object.id == session[:user_id] } %>
-        <%= button_to 'Unsubscribe', subscription_path(:id => Subscription.find_by(user_id: session[:user_id], category_id: category.id)), :method=> :delete %>
-      <% else %>
-        <%= button_to 'Subscribe', subscriptions_path(:category_id => category.id, :user_id=> session[:user_id]), :method=> :post %>
-      <% end %>
+    <% @categories.each do |category| %>
+    <div class="ui segment">
+      <h2><%= link_to category.name.capitalize, category_path(category.name.downcase) %>
+        <% if logged_in? %>
+          <span class="inline-button">
+          <% if category.subscribers.any?{|object| object.id == session[:user_id] } %>
+            <%= link_to 'Unsubscribe', subscription_path(:id => Subscription.find_by(user_id: session[:user_id], category_id: category.id)), :method=> :delete, class: "ui fluid basic button" %>
+          <% else %>
+            <%= link_to 'Subscribe', subscriptions_path(:category_id => category.id, :user_id=> session[:user_id]), :method=> :post, class: "ui fluid button default" %>
+          <% end %>
+          </span>
+        <% end %>
+      </h2>
+    </div>
     <% end %>
-  </h2>
-  <hr>
-<% end %>
 
-<p><%= link_to "Back to Homepage", root_path %></p>
+  </div>
 
-<% if logged_in? %>
-	<p><%= link_to "Create new Category", new_category_path %></p>
-<% end %>
+  <div class="five wide column">
+    <p><%= link_to "Back to Homepage", root_path %></p>
+    <% if logged_in? %>
+      <p><%= link_to "Create new Category", new_category_path %></p>
+    <% end %>
+	</div>
+
+</div>

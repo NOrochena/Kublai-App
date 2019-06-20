@@ -1,60 +1,75 @@
-<h1><%= @post.title%></h1>
-<h2>Author: <%= @post.user.name.capitalize%></h2>
-<p>Tag: <%= @post.tag.name %></p>
-<p><%= @post.content%></p>
+<div class="row">
+	<div class="eleven wide column">
 
-<h3>Collaborators</h3>
-<ol>
-	<% @post.collaborators.each do |collaborator| %>
-		<li><%= link_to collaborator.user.name.capitalize, user_path(collaborator.user) %>
-		<% if collaborator.user == find_current_user%>
-			<%= link_to "Remove", collaborator_path(collaborator), method: "Delete"%>
+		<h1><%= @post.title%></h1>
+		<h2>Author: <%= @post.user.name.capitalize%></h2>
+		<p>Category: <%= @post.category.name %></p>
+		<p><%= @post.content%></p>
+
+		<h3>Collaborators</h3>
+		<ol>
+			<% @post.collaborators.each do |collaborator| %>
+				<li><%= link_to collaborator.user.name.capitalize, user_path(collaborator.user) %>
+				<% if collaborator.user == find_current_user%>
+					<%= link_to "Remove", collaborator_path(collaborator), method: "Delete"%>
+				<% end %>
+				</li>
+			<% end %>
+		</ol>
+
+		<h3>Comments:</h3>
+		<ol>
+			<% @post.comments.each do |comment| %>
+			<li>
+				<%= comment.content%> by: <%= link_to comment.user.name.capitalize, user_path(comment.user) %>
+				<% if comment.user_id == session["user_id"] %>
+					<small>
+						<%= link_to "Edit Comment", edit_post_comment_path(@post, comment) %>
+						<%= link_to "Delete Comment", comment_path(comment), method: "Delete", data: { confirm: 'Really delete this comment?' }  %>
+					</small>
+				<% end %>
+			</li>  
+			<% end %>
+		</ol>
+
+		<% if flash[:notice] %>
+				<div class="notice"><%= flash[:notice] %></div>
 		<% end %>
-		</li>
-	<% end %>
-</ol>
 
-<h3>Comments:</h3>
-<ol>
-	<% @post.comments.each do |comment| %>
-	<li>
-		<%= comment.content%> by: <%= link_to comment.user.name.capitalize, user_path(comment.user) %>
-		<% if comment.user_id == session["user_id"] %>
-			<small>
-				<%= link_to "Edit Comment", edit_post_comment_path(@post, comment) %>
-				<%= link_to "Delete Comment", comment_path(comment), method: "Delete", data: { confirm: 'Really delete this comment?' }  %>
-			</small>
+		<%= form_tag "/comments" do %>
+			<%= label_tag :content, "Add Comment:" %>
+			<%= text_field_tag :content %>
+
+			<%= hidden_field_tag :post_id, @post.id %>
+
+			<%= submit_tag "Create Comment"%>
 		<% end %>
-	</li>  
-	<% end %>
-</ol>
 
-<% if flash[:notice] %>
-    <div class="notice"><%= flash[:notice] %></div>
-<% end %>
+		<% unless @post.user_id == session["user_id"]%>
+			<%= form_tag "/collaborator" do %>
+				<%= hidden_field_tag :user_id, session["user_id"]%>
+				<%= hidden_field_tag :post_id, @post.id %>
+				<%= submit_tag "Collaborate!"%>
+			<% end %>
+		<% end %>
 
-<%= form_tag "/comments" do %>
-	<%= label_tag :content, "Add Comment:" %>
-	<%= text_field_tag :content %>
+		<ul>
+			<li><%= link_to "Back to "+ @post.category.name.capitalize, category_path(@post.category.name.downcase) %></li>
+			<li><%= link_to "Back to Homepage", root_path %> 
+			<% if @post.user_id == session["user_id"] %>
+				<li><%= link_to "Edit", edit_post_path(@post)%></li>
+				<li><%= link_to "Delete", @post, method: "delete"%></li>
+			<% end %>
+		</ul>
 
-	<%= hidden_field_tag :post_id, @post.id %>
+	</div>
 
-	<%= submit_tag "Create Comment"%>
-<% end %>
+	<div class="five wide column">
+		<h3>More From <%= @post.category.name.capitalize %> </h3>
+		<% @posts.where(category: @post.category).take(5).each do |post| %>
+			<p><%= link_to post.title, post_path(post) %></p>
+		<% end %>
+	
+	</div>
 
-<% unless @post.user_id == session["user_id"]%>
-	<%= form_tag "/collaborator" do %>
-		<%= hidden_field_tag :user_id, session["user_id"]%>
-		<%= hidden_field_tag :post_id, @post.id %>
-		<%= submit_tag "Collaborate!"%>
-	<% end %>
-<% end %>
-
-<ul>
-	<li><%= link_to "Back to "+ @post.category.name.capitalize, category_path(@post.category.name.downcase) %></li>
-	<li><%= link_to "Back to Homepage", root_path %> 
-	<% if @post.user_id == session["user_id"] %>
-		<li><%= link_to "Edit", edit_post_path(@post)%></li>
-		<li><%= link_to "Delete", @post, method: "delete"%></li>
-	<% end %>
-</ul>
+</div>
