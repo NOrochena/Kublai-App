@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :find_current_user, :logged_in?
 
   def index
-    @posts = Post.order("created_at desc")
+    @posts = Post.search(params[:id], params[:search]).sort { |a, b| b.created_at <=> a.created_at }
   end
 
   def find_current_user
@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    session["user_id"]
+    session['user_id']
   end
 
   private

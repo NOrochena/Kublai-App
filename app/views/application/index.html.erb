@@ -1,5 +1,13 @@
 <h1>The Homepage</h1>
 
+<%= form_tag root_path, :method => 'get' do %>
+  <p>
+	<%= hidden_field_tag :id, session[:user_id] %>
+    <%= select_tag(:search, options_for_select([['All', 1], ['Subscriptions', 2]])) %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
 <ul class="posts-list">
 	<% @posts.each do |post| %>
 	<li>
