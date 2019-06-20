@@ -14,7 +14,7 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.create(category_params)
-    redirect_to @category
+    redirect_to category_path(@category.name)
   end
 
   private

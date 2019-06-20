@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :subscriptions
   root to: 'application#index'
 
-  resources :categories, only: %i[index new]
+  resources :categories, only: %i[index new create]
   get '/categories/:name', to: 'posts#index', as: 'category'
 
   resources :comments, only: %i[create update destroy]

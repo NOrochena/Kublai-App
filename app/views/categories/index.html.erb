@@ -1,5 +1,15 @@
 <% @categories.each do |category| %>
-  <h2><%= link_to category.name, category_path(category.name.downcase) %> <button>Subscribe</button></h2>
+  <h2>
+    <%= link_to category.name, category_path(category.name.downcase) %>
+
+    <% if logged_in? %>
+      <% if category.subscribers.any?{|object| object.id == session[:user_id] } %>
+        <%= button_to 'Unsubscribe', subscription_path(:id => Subscription.find_by(user_id: session[:user_id], category_id: category.id)), :method=> :delete %>
+      <% else %>
+        <%= button_to 'Subscribe', subscriptions_path(:category_id => category.id, :user_id=> session[:user_id]), :method=> :post %>
+      <% end %>
+    <% end %>
+  </h2>
   <hr>
 <% end %>
 
