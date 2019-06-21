@@ -1,0 +1,98 @@
+<h1>Analytics Page</h1>
+
+<h2>Posts</h2>
+
+<ul>
+    <li>
+        <p> <strong>Most Comments:</strong>
+        <%= link_to Post.most_comments.title, post_path(Post.most_comments)%> 
+        <%= "with " + Post.most_comments.comments.count.to_s + " comments"%> 
+        </p>
+    </li>
+
+    <li>
+        <p> 
+        <strong>Most Collaborators:</strong> 
+        <%= link_to Post.most_collaborators.title, post_path(Post.most_collaborators)%> 
+        <%= "with " + Post.most_collaborators.collaborators.count.to_s + " collaborators"%> 
+        </p>
+    </li>
+
+    <li>
+        <p> <strong>Most Recent Post:</strong>
+            <%= link_to Post.most_recent_post.title, post_path(Post.most_recent_post)%>
+            <%= Post.most_recent_post.created_at.strftime("at  %T on %B %e, %Y") %>
+        </p>
+    </li>
+
+    <li>
+        <p> <strong>Longest Post Title:</strong>
+            <%= link_to Post.longest_title.title, post_path(Post.longest_title)%>
+            <%= "with " + Post.longest_title.title.length.to_s + " characters" %>
+        </p>
+    </li>
+
+    <li>
+        <p> <strong>Longest Post Content:</strong>
+            <%= link_to Post.longest_content.title, post_path(Post.longest_content)%>
+            <%= "with " + Post.longest_content.title.length.to_s + " characters" %>
+        </p>
+    </li>
+</ul>
+
+<h2>Users</h2>
+<ul>
+    <li>
+        <p>
+            <strong>Most Comments</strong>
+            <%= link_to User.most_comments.name, user_path(User.most_comments)%>
+            <%= "with " + User.most_comments.comments.count.to_s + " comments"%>
+        </p>
+    </li>
+
+    <li>
+        <p>
+            <strong>Least Comments</strong>
+            <%= link_to User.least_comments.name, user_path(User.least_comments)%>
+            <%= "with " + User.least_comments.comments.count.to_s + " comments"%>
+        </p>
+    </li>
+
+    <li>
+        <p>
+            <strong>Most collaborations</strong>
+            <%= link_to User.most_collaborators.name, user_path(User.most_collaborators)%>
+            <%= "with " + User.most_collaborators.collaborators.count.to_s + " collaborations"%>
+        </p>
+    </li>
+
+    <li>
+        <p>
+            <strong>Least collaborations</strong>
+            <%= link_to User.least_collaborators.name, user_path(User.least_collaborators)%>
+            <%= "with " + User.least_collaborators.collaborators.count.to_s + " collaborations"%>
+        </p>
+    </li>
+</ul>
+
+<h2>Comments</h2>
+
+<ul>
+    <li>
+        <p>
+            <strong>Longest Comment</strong>
+            <%= link_to Comment.longest_comment.content, post_path(Comment.longest_comment.post) %>
+            <%= "with " + Comment.longest_comment.content.length.to_s + " characters"%>
+        </p>
+    </li>
+
+    <li>
+        <p>
+            <strong>Most Unique Characters in Comment</strong>
+            <%= link_to Comment.most_unique_characters_in_comment.content, post_path(Comment.most_unique_characters_in_comment.post) %>
+            <%= "with " + Comment.most_unique_characters_in_comment.content.chars.to_a.uniq.length.to_s + " unique characters"%>
+        </p>
+    </li>
+</ul>
+
+<%= image_tag ("erd-1.png")  %>
