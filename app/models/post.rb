@@ -18,7 +18,6 @@ class Post < ApplicationRecord
     if search == 'subscription'
       user = User.find(user)
       category_ids = user.categories.map(&:id)
-
       Post.where(category_id: category_ids)
     else
       all
