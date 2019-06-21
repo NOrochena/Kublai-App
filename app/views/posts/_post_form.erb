@@ -1,21 +1,21 @@
-<%= form_for @post do |f| %>
-  <div class="form-group">
-    <%= f.label :category_id%>
-    <%= f.collection_select :category_id, Category.all, :id, :name, prompt: true %>
+<%= form_for @post, html: {class:"ui form"} do |f| %>
+  <div class="field">
+    <%= f.label :category_id %>
+    <%= f.collection_select :category_id, Category.order(:name), :id, :name, { prompt: "Select a Category" }, {class:"ui fluid search selection dropdown"} %>
   </div>
-  <div class="form-group">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+  <div class="field">
+    <%= f.label :title, "Post Title" %>
+    <%= f.text_field :title, placeholder: "" %>
   </div>
-  <div class="form-group">
-    <%= f.label :content %>
-    <%= f.text_area :content %>
+  <div class="field">
+    <%= f.label :content, "Post Content" %>
+    <%= f.text_area :content, placeholder: "" %>
   </div>
-  <div class="form-group">
+  <div class="field">
     <%= f.label :tag_id %>
-    <%= f.collection_select :tag_id, Tag.all, :id, :name %>
+    <%= f.collection_select :tag_id, Tag.all, :id, :name, { prompt: "Select a Tag" }, {class:"ui fluid search selection dropdown"} %>
   </div>  
-  <div class="form-group">
-    <%= f.submit%>
+  <div class="field">
+    <%= f.submit "Submit", :class => "ui button" %>
   </div>
 <% end %>

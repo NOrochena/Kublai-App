@@ -1,6 +1,8 @@
 <h1>
 	<% if @posts.any? %>
 		<%= @posts.first.category.name.capitalize %> Index
+	<% else %>
+		
 	<% end %>
 </h1>
 
