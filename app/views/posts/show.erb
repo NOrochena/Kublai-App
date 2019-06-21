@@ -1,72 +1,87 @@
 <div class="row">
+	<div class="sixteen wide column">
+	<p>
+		<strong><%= link_to @post.category.name.capitalize, category_path(@post.category.name) %></strong> • 
+		Posted by <%= link_to @post.user.name.capitalize, user_path(@post.user) %> <%= time_ago_in_words(@post.created_at) %> ago
+	</p>
+	</div>
+</div>
+
+<div class="row">
 	<div class="eleven wide column">
+		<div>
+			<h1><%= @post.title%></h1>
+			<p><%= @post.content%></p>
+		</div>
 
-		<h1><%= @post.title%></h1>
-		<h2>Author: <%= @post.user.name.capitalize%></h2>
-		<p>Category: <%= @post.category.name %></p>
-		<p><%= @post.content%></p>
-
-		<h3>Collaborators</h3>
-		<ol>
-			<% @post.collaborators.each do |collaborator| %>
-				<li><%= link_to collaborator.user.name.capitalize, user_path(collaborator.user) %>
-				<% if collaborator.user == find_current_user%>
-					<%= link_to "Remove", collaborator_path(collaborator), method: "Delete"%>
-				<% end %>
-				</li>
-			<% end %>
-		</ol>
-
-		<h3>Comments:</h3>
-		<ol>
+		<div class="ui comments">
+			<h3 class="ui dividing header">Comments</h3>
 			<% @post.comments.each do |comment| %>
-			<li>
-				<%= comment.content%> by: <%= link_to comment.user.name.capitalize, user_path(comment.user) %>
-				<% if comment.user_id == session["user_id"] %>
-					<small>
+			<div class="comment">
+				<a class="avatar">
+					<img src=<%= asset_path('avatar.png') %>>
+				</a>
+				<div class="content">
+					<a class="author"><strong><%= link_to comment.user.name.capitalize, user_path(comment.user) %></strong></a>
+					<div class="metadata">
+						<span class="date"><%= time_ago_in_words(comment.created_at).capitalize %> ago</span>
+					</div>
+					<div class="text">
+						<%= comment.content%>
+					</div>
+					<% if comment.user_id == session["user_id"] %>
+					<div class="actions">
 						<%= link_to "Edit Comment", edit_post_comment_path(@post, comment) %>
 						<%= link_to "Delete Comment", comment_path(comment), method: "Delete", data: { confirm: 'Really delete this comment?' }  %>
-					</small>
-				<% end %>
-			</li>  
+					</div>
+					<% end %>
+				</div>
+			</div>  
 			<% end %>
-		</ol>
+		</div>
 
 		<% if flash[:notice] %>
 				<div class="notice"><%= flash[:notice] %></div>
 		<% end %>
 
-		<%= form_tag "/comments" do %>
-			<%= label_tag :content, "Add Comment:" %>
-			<%= text_field_tag :content %>
-
-			<%= hidden_field_tag :post_id, @post.id %>
-
-			<%= submit_tag "Create Comment"%>
-		<% end %>
-
-		<% unless @post.user_id == session["user_id"]%>
-			<%= form_tag "/collaborator" do %>
-				<%= hidden_field_tag :user_id, session["user_id"]%>
+		<%= form_tag "/comments", :class => 'ui form' do %>
+			<div class="field">
+				<%= label_tag :content, "Leave a Comment:" %>
+				<%= text_field_tag :content %>
 				<%= hidden_field_tag :post_id, @post.id %>
-				<%= submit_tag "Collaborate!"%>
-			<% end %>
+			</div>
+			<div class="field">
+				<%= submit_tag "Create Comment", :class => "ui button" %>
+			</div>
 		<% end %>
-
-		<ul>
-			<li><%= link_to "Back to "+ @post.category.name.capitalize, category_path(@post.category.name.downcase) %></li>
-			<li><%= link_to "Back to Homepage", root_path %> 
-			<% if @post.user_id == session["user_id"] %>
-				<li><%= link_to "Edit", edit_post_path(@post)%></li>
-				<li><%= link_to "Delete", @post, method: "delete"%></li>
-			<% end %>
-		</ul>
 
 	</div>
 
 	<div class="five wide column">
+		<h3 class="ui dividing header">Collaborators</h3>
+		<div class="ui bulleted list">
+			<% @post.collaborators.each do |collaborator| %>
+				<div class="item"><%= link_to collaborator.user.name.capitalize, user_path(collaborator.user) %>
+				<% if collaborator.user == find_current_user%>
+					<%= link_to collaborator_path(collaborator), method: "Delete", class: "", title: "Remove self from project" do %>
+						<i class="delete icon"></i>
+					<% end %>
+				<% end %>
+				</div>
+			<% end %>
+		</div>
+		<% unless @post.user_id == session["user_id"]%>
+			<%= form_tag "/collaborator", :class => 'ui form'  do %>
+				<%= hidden_field_tag :user_id, session["user_id"]%>
+				<%= hidden_field_tag :post_id, @post.id %>
+				<div class="field">
+					<%= submit_tag "Collaborate!", :class => "ui button" %>
+				</div>
+			<% end %>
+		<% end %>
+
 		<h3>More From <%= @post.category.name.capitalize %> </h3>
-		<% @posts.where(category: @post.category).take(5).each do |post| %>
+		<% @posts.where(category: @post.category).take(6).each do |post| %>
 			<p><%= link_to post.title, post_path(post) %></p>
 		<% end %>
 	

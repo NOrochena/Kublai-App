@@ -24,4 +24,9 @@
   <p><%= link_to @user, method: "delete", :data => {:confirm => 'Do you really want to delete your profile?'}, class: "ui fluid red button" do %>
     <i class="exclamation triangle icon"></i> Delete Profile
   <% end %></p>
+
+<% else %>
+  <p><%= link_to "mailto:#{@user.email}", class: "ui fluid positive button" do %>
+    <i class="envelope icon"></i> Email <%= @user.name.capitalize %>
+  <% end %></p>
 <% end %>
