@@ -26,7 +26,7 @@
   <% end %></p>
 
 <% else %>
-  <p><%= link_to "mailto:#{@user.email}", class: "ui fluid positive button" do %>
+  <p><%= link_to "mailto:#{@user.email}", target: :_blank, class: "ui fluid positive button" do %>
     <i class="envelope icon"></i> Email <%= @user.name.capitalize %>
   <% end %></p>
 <% end %>

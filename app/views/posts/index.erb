@@ -1,13 +1,13 @@
 <div class="row">
 	<div class="eleven wide column">
-
-		<h1 class="ui header">
-			<% if @posts.any? %>
-				<%= @posts.first.category.name.capitalize %> Posts
-			<% else %>
-				
+		<% if @posts.any? %>
+			<h1 class="ui header"><%= @posts.first.category.name.capitalize %> Posts</h1>
+		<% else %>
+			<h1>No Posts Found!</h1>
+			<%= link_to new_post_path, class:"ui positive button" do %>
+				<i class="pencil alternate icon"></i> Create First Post
 			<% end %>
-		</h1>
+		<% end %>
 
 		<ul class="posts-list">
 			<% @posts.each do |post| %>
@@ -25,9 +25,7 @@
 		</div>
 
     <div class="five wide column">
-        <% if logged_in? %>
-					<p><%= link_to "Create new Post", new_post_path %></p>
-				<% end %>
-	</div>
+
+		</div>
 
 </div>

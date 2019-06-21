@@ -1,14 +1,24 @@
+
+
 <div class="row">
-	<div class="eleven wide column">
+	<% if logged_in? %>
+		<div class="left floated left aligned eight wide column">
+			<%= link_to new_post_path, class:"ui positive button" do %>
+				<i class="pencil alternate icon"></i> Create New Post
+			<% end %>
+		</div>
+		<div class="right floated right aligned eight wide column">
+			<%= form_tag root_path, :method => 'get', html: {class:"ui form"}  do %>
+				<div class="field">
+					<%= hidden_field_tag :id, session[:user_id] %>
+					<%= select_tag(:search, options_for_select([['Show All', 1], ['Show Subscriptions', "subscription"]]), {class:"ui search selection dropdown"}) %>
+					<%= submit_tag "Filter Posts", :name => nil, :class => "ui button"  %>
+				</div>
+			<% end %>
+		</div>
+	<% end %>
 
-		<%= form_tag root_path, :method => 'get' do %>
-			<p>
-			<%= hidden_field_tag :id, session[:user_id] %>
-				<%= select_tag(:search, options_for_select([['All', 1], ['Subscriptions', "subscription"]])) %>
-				<%= submit_tag "Search", :name => nil %>
-			</p>
-		<% end %>
-
+	<div class="sixteen wide column">
 		<ul class="posts-list">
 			<% @posts.each do |post| %>
 			<li class="ui segment">
@@ -23,14 +33,6 @@
 			<% end %>
 		</ul>
 
-	</div>
-
-	<div class="five wide column">
-		<% if logged_in? %>
-			<p><%= link_to "Create new Post", new_post_path %></p>
-		<% else %>
-			<!-- <p><%= link_to "Login", login_path %></p> -->
-		<% end %>
 	</div>
 
 </div>

@@ -1,6 +1,12 @@
-<h1>Create new User</h1>
-<%= render partial: 'shared/error_list', locals: {object: @user }%>
-<%= render 'user_form'%>
+<div class="row">
+	<div class="eleven wide column">
 
-<p><%= link_to 'Cancel', users_path %></p>
+    <h1>Create new User</h1>
+    <%= render partial: 'shared/error_list', locals: {object: @user }%>
+    <%= render 'user_form'%>
+
+    <p><%= link_to 'Cancel', users_path %></p>
+    
+  </div>
+</div>
 

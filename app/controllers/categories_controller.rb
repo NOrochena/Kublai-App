@@ -15,8 +15,14 @@ class CategoriesController < ApplicationController
 
   def create
     downcase_name = params[:category][:name].downcase
-    @category = Category.create(name: downcase_name)
-    redirect_to category_path(@category.name)
+    @category = Category.new(name: downcase_name)
+    if @category.valid?
+      @category.save
+      redirect_to category_path(@category.name)
+    else
+      flash[:notice] = @category.errors.full_messages.join(' ')
+      redirect_back(fallback_location: categories_path)
+    end
   end
 
   private

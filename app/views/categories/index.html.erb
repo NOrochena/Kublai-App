@@ -22,6 +22,9 @@
   <div class="five wide column">
     <!-- <%= link_to "Back to Homepage", root_path %> -->
     <% if logged_in? %>
+      <% if flash[:notice] %>
+        <div class="notice"><%= flash[:notice] %></div>
+      <% end %>
       <!-- <%= link_to "Create new Category", new_category_path %> -->
       <%= render "category_form" %>
     <% end %>
