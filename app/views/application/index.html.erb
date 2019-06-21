@@ -1,6 +1,14 @@
 <div class="row">
 	<div class="eleven wide column">
 
+		<%= form_tag root_path, :method => 'get' do %>
+			<p>
+			<%= hidden_field_tag :id, session[:user_id] %>
+				<%= select_tag(:search, options_for_select([['All', 1], ['Subscriptions', "subscription"]])) %>
+				<%= submit_tag "Search", :name => nil %>
+			</p>
+		<% end %>
+
 		<ul class="posts-list">
 			<% @posts.each do |post| %>
 			<li class="ui segment">
