@@ -15,7 +15,9 @@ class PostsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @posts = Post.all
+  end
 
   def new
     @post = Post.new

@@ -1,4 +1,15 @@
-<h1>Edit User</h1>
+<div class="row">
+	<div class="eleven wide column">
 
-<%= render partial: 'shared/error_list', locals: {object: @user }%>
-<%= render 'user_form'%>
+    <h1 class="ui header">Edit Profile</h1>
+
+    <%= render partial: 'shared/error_list', locals: {object: @user }%>
+    <%= render 'user_form'%>
+  
+  </div>
+
+  <div class="five wide column">
+    <%= render "user_card" %>
+  </div>
+
+</div>

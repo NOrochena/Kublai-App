@@ -1,9 +1,16 @@
-<h1>User Index</h1>
+<div class="row">
+	<div class="eleven wide column">
 
-<% @users.each do |user| %>
-    <h2><%= link_to user.name, user_path(user)%></h2>
-<% end %>
+        <h1 class="ui header">Users</h1>
 
-<p><%= link_to "Create User", new_user_path %></p>
-<p><%= link_to "Posts Index", posts_path %></p>
+        <% @users.each do |user| %>
+            <h2><%= user.name %> (<%= link_to "View Profile", user_path(user)%>) | Total Posts: <%= user.posts.length %> | Total Comments: <%= user.comments.length %> </h2>
+        <% end %>
+    </div>
+
+    <div class="five wide column">
+    </div>
+
+</div>
+
 

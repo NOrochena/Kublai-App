@@ -1,0 +1,32 @@
+<div class="ui fluid card">
+  <div class="image">
+    <img src="https://semantic-ui.com/images/avatar2/large/kristy.png">
+  </div>
+  <div class="content">
+    <a class="header"><%= @user.name.capitalize %></a>
+    <div class="meta">
+      <span class="date">Joined on <%= @user.created_at.strftime("%b %d, %Y") %></span>
+    </div>
+    <div class="description"><%= @user.name.capitalize %> is an art director living in New York.</div>
+  </div>
+  <div class="extra content">
+    <a>
+    <i class="user icon"></i>
+      22 Friends
+    </a>
+  </div>
+</div>
+
+<% if @user.id == session["user_id"] %>
+  <p><%= link_to edit_user_path(@user), class: "ui fluid primary button" do %>
+    <i class="edit icon"></i> Edit Profile
+  <% end %></p>
+  <p><%= link_to @user, method: "delete", :data => {:confirm => 'Do you really want to delete your profile?'}, class: "ui fluid red button" do %>
+    <i class="exclamation triangle icon"></i> Delete Profile
+  <% end %></p>
+
+<% else %>
+  <p><%= link_to "mailto:#{@user.email}", class: "ui fluid positive button" do %>
+    <i class="envelope icon"></i> Email <%= @user.name.capitalize %>
+  <% end %></p>
+<% end %>

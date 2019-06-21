@@ -1,0 +1,30 @@
+<nav class="ui stackable menu">
+  <div class="ui container">
+    <a href="<%= root_path %>" class="header item">
+      <img class="logo" src=<%= asset_path('dog.png') %>> Kublai
+    </a>
+    <a href="<%= categories_path %>" class="item">
+      <i class="grid layout icon"></i> Browse Categories
+    </a>
+    <a href="<%= users_path %>" class="item">
+      <i class="users icon"></i> Browse Users
+    </a>
+    <a href="#" class="item">
+      <i class="clipboard list icon"></i> Site Analytics
+    </a>
+    <div class="right item">
+      <% if find_current_user %>
+        <%= link_to user_path(find_current_user), class: "ui fluid primary button" do %>
+          <i class="user circle icon"></i> <%= find_current_user.name.capitalize %>
+        <% end %>
+        <%= link_to "Logout", logout_path, method: "delete", class: "ui red button" %>
+      <% else %>
+        <%= link_to "Login or Create Account", login_path, class: "login-create-button ui fluid primary button" %>
+        <!-- <%= link_to "Create Account", new_user_path, class: "login-create-button ui fluid red button" %> -->
+      <% end %>
+      
+    </div>
+  </div>
+</nav>
+
+<%= render "login_modal" %>

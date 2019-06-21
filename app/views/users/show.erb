@@ -1,46 +1,63 @@
-<h1><%= @user.name.capitalize %>'s Profile Page</h1>
+<div class="row">
+	<div class="eleven wide column">
 
-<h2><%= @user.name.capitalize %>'s Projects:</h2>
-<% if @user.posts.length > 0 %>
-    <ol>
-    <% @user.posts.each do |post| %>
-        <li><%= link_to post.title, post_path(post)%></li>
-    <% end %>
-    </ol>
-<% else %>
-    <p><%= @user.name.capitalize %> hasn't started any projects.</p>
-<% end %>
+        <h1 class="ui header"><%= @user.name.capitalize %>'s Profile Page</h1>
 
-<h2><%= @user.name.capitalize %>'s Collaborations:</h2>
-<% if @user.collaborators.length > 0 %>
-    <ol>
-    <% @user.collaborators.each do |collaborator| %>
-        <li><%= link_to collaborator.post.title, post_path(collaborator.post)%></li>
-    <% end %>
-    </ol>
-<% else %>
-    <p><%= @user.name.capitalize %> isn't collaborating on any projects.</p>
-<% end %>
+        <h2 class="ui dividing header"><%= @user.name.capitalize %>'s Posts:</h2>
+        <% if @user.posts.length > 0 %>
+            <div class="ui relaxed list">
+            <% @user.posts.each do |post| %>
+                <div class="item ui comments" style="margin: 0!important;">
+                    <div class="content comment">
+                        <h3 class="header"><%= link_to post.title, post_path(post)%></h3>
+                        <div class="metadata" style="margin-left: 0;">
+                            <span class="date">Posted <%= time_ago_in_words(post.created_at) %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+            </div>
+        <% else %>
+            <p><%= @user.name.capitalize %> hasn't started any projects.</p>
+        <% end %>
 
-<h2><%= @user.name.capitalize %>'s Comments:</h2>
-<% if @user.comments.length > 0 %>
-    <ol class="user-comments">
-    <% @user.comments.each do |comment| %>
-        <li>
-            <small><%= link_to comment.post.title, post_path(comment.post) %></small>
-            <!-- <%= link_to comment.content, post_path(comment.post) %> -->
-            <%= comment.content %>
-        </li>
-    <% end %>
-    </ol>
-<% else %>
-    <p><%= @user.name.capitalize %> hasn't left any comments.</p>
-<% end %>
+        <h2 class="ui dividing header"><%= @user.name.capitalize %>'s Collaborations:</h2>
+        <% if @user.collaborators.length > 0 %>
+            <div class="ui relaxed list">
+            <% @user.collaborators.each do |collaborator| %>
+                <div class="item ui comments" style="margin: 0!important;">
+                    <div class="content comment">
+                        <h4 class="header"><%= link_to collaborator.post.title, post_path(collaborator.post)%></h4>
+                    </div>
+                </div>
+            <% end %>
+            </div>
+        <% else %>
+            <p><%= @user.name.capitalize %> isn't collaborating on any projects.</p>
+        <% end %>
 
-<ul class="inline-list">
-    <li><%= link_to "Home", users_path %></li>
-<% if @user.id == session["user_id"] %>
-    <li><%= link_to "Delete", @user, method: "delete"%></li>
-    <li><%= link_to "Edit", edit_user_path(@user)%></li>
-<% end %>
-</ul>
+        <h3 class="ui dividing header">Latest Comments:</h3>
+        <% if @user.comments.length > 0 %>
+            <div class="ui comments">
+            <% @user.comments.order('created_at DESC').limit(5).each do |comment| %>
+                <div class="comment">
+                     <div class="content">
+                        <div class="text"><%= comment.content %></div>
+                        <div class="metadata" style="margin-left: 0;">
+                            <span class="date"><%= comment.created_at.strftime("%b %d, %Y") %></span> in <%= link_to comment.post.title, post_path(comment.post) %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+            </div>
+        <% else %>
+            <p><%= @user.name.capitalize %> hasn't left any comments.</p>
+        <% end %>
+
+    </div>
+
+    <div class="five wide column">
+        <%= render "user_card" %>
+	</div>
+
+</div>
