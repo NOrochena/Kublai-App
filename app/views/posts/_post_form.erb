@@ -1,7 +1,7 @@
 <%= form_for @post, html: {class:"ui form"} do |f| %>
   <div class="field">
     <%= f.label :category_id %>
-    <%= f.collection_select :category_id, Category.order("name ASC"), :id, :name, { prompt: "Select a Category" }, {class:"ui fluid search selection dropdown"} %>
+    <%= f.collection_select :category_id, Category.order(:name), :id, :name, { prompt: "Select a Category" }, {class:"ui fluid search selection dropdown"} %>
   </div>
   <div class="field">
     <%= f.label :title, "Post Title" %>
@@ -10,7 +10,11 @@
   <div class="field">
     <%= f.label :content, "Post Content" %>
     <%= f.text_area :content, placeholder: "" %>
-  </div> 
+  </div>
+  <div class="field">
+    <%= f.label :tag_id %>
+    <%= f.collection_select :tag_id, Tag.all, :id, :name, { prompt: "Select a Tag" }, {class:"ui fluid search selection dropdown"} %>
+  </div>  
   <div class="field">
     <%= f.submit "Submit", :class => "ui button" %>
   </div>
