@@ -1,0 +1,20 @@
+<% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+
+<%= form_tag "/login", :class => 'ui form' do %>
+  <div class="field">
+    <%= label_tag :email, "Enter Your Email" %>
+    <%= email_field_tag :email %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :password, "Enter Your Password" %>
+    <%= password_field_tag :password %>
+  </div>
+
+  <div class="field">
+    <%= submit_tag "Login", :class => "ui button" %>
+  </div>
+
+<% end %>
