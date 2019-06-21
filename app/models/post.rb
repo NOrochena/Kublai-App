@@ -15,12 +15,11 @@ class Post < ApplicationRecord
   validates :category_id, presence: true
 
   def self.search(user, search)
-    if search == '2'
+    if search == 'subscription'
       user = User.find(user)
-      categories = user.categories
-      Post.all.select do |post|
-        categories.include?(post.category)
-      end
+      category_ids = user.categories.map(&:id)
+
+      Post.where(category_id: category_ids)
     else
       all
     end
