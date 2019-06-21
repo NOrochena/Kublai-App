@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   # Colloborator
   resources :collaborators, only: [:destroy]
   post '/collaborator', to: 'collaborators#create'
+
+  get '/analytics', to: 'analytics#home', as: 'analytics'
   # delete '/collaborator/:id', to: 'collaborators#destroy'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
